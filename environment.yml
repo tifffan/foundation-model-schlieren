@@ -1,0 +1,15 @@
+name: fm-schlieren
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+    - transformers
+    - torch
+    - torchvision
+    - matplotlib
+    - scikit-learn
+    - pandas
+    - Pillow
