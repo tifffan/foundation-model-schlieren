@@ -113,8 +113,8 @@ class Trainer:
             self.val_losses.append(val_loss)
             
             # Divide the losses by the number of pixels
-            train_loss_normalized = train_loss / self.num_pixels
-            val_loss_normalized = val_loss / self.num_pixels
+            train_loss_normalized = train_loss #/ self.num_pixels
+            val_loss_normalized = val_loss #/ self.num_pixels
 
             self.train_losses.append(train_loss_normalized)
             self.val_losses.append(val_loss_normalized)
@@ -190,8 +190,8 @@ class Trainer:
         # Compute loss on entire validation dataset
         val_loss = self.compute_full_loss(self.val_loader, dataset_name='Validation')
         
-        train_loss_normalized = train_loss / self.num_pixels
-        val_loss_normalized = val_loss / self.num_pixels
+        train_loss_normalized = train_loss #/ self.num_pixels
+        val_loss_normalized = val_loss #/ self.num_pixels
 
         print(f"Best Model Evaluation - Training Loss: {train_loss_normalized:.6f}, Validation Loss: {val_loss_normalized:.6f}")
 
@@ -212,9 +212,9 @@ class Trainer:
                 running_loss += loss.item()
                 recon_running_loss += recon_loss.item()
                 kl_running_loss += kl_loss.item()
-        avg_loss = running_loss / len(data_loader.dataset)
-        avg_recon_loss = recon_running_loss / len(data_loader.dataset)
-        avg_kl_loss = kl_running_loss / len(data_loader.dataset)
+        avg_loss = running_loss / len(data_loader.dataset) #/ self.num_pixels
+        avg_recon_loss = recon_running_loss / len(data_loader.dataset) #/ self.num_pixels
+        avg_kl_loss = kl_running_loss / len(data_loader.dataset) #/ self.num_pixels
 
         print(f"{dataset_name} Loss: {avg_loss:.6f} | Recon Loss: {avg_recon_loss:.6f} | KL Loss: {avg_kl_loss:.6f}")
         return avg_loss
