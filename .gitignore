@@ -2,6 +2,7 @@
 data/
 results/
 dust3r/
+job_fm_*.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
