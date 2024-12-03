@@ -51,6 +51,7 @@ def main():
     parser.add_argument('--input_path', type=str, required=True, help='Path to the input features file (numpy array).')
     parser.add_argument('--output_path', type=str, required=True, help='Path to save the reduced features.')
     parser.add_argument('--reduced_dim', type=int, default=16, help='Target dimensionality after PCA.')
+    parser.add_argument('--plot_explained_variance', action='store_true', help='Plot and save the explained variance curve.')
     args = parser.parse_args()
     
     # Ensure the output path includes a file name
@@ -66,26 +67,31 @@ def main():
     print(f"Loaded features with shape: {features.shape}")
 
     batch_size, grid_size, _, hidden_dim = features.shape
-    features_flat = features.reshape(-1, hidden_dim)  # Shape: (num_samples, hidden_dim)
+    
 
-    # Compute and save explained variance
-    cumulative_explained_variance = compute_explained_variance(features_flat)
-    explained_variance_path = Path(args.output_path).with_name(Path(args.output_path).stem + '_explained_variance.npy')
-    np.save(explained_variance_path, cumulative_explained_variance)
-    print(f"Saved cumulative explained variance to {explained_variance_path}")
+    if args.plot_explained_variance:
+        # Compute and save explained variance
+        features_flat = features.reshape(-1, hidden_dim)  # Shape: (num_samples, hidden_dim)
+        cumulative_explained_variance = compute_explained_variance(features_flat)
+        explained_variance_path = Path(args.output_path).with_name(Path(args.output_path).stem + '_explained_variance.npy')
+        np.save(explained_variance_path, cumulative_explained_variance)
+        print(f"Saved cumulative explained variance to {explained_variance_path}")
 
-    # Optionally, plot and save the explained variance curve
-    plt.figure(figsize=(8, 6))
-    plt.plot(np.arange(1, len(cumulative_explained_variance) + 1), cumulative_explained_variance, marker='o')
-    plt.xlabel('Number of PCA Components')
-    plt.ylabel('Cumulative Explained Variance Ratio')
-    plt.title('Explained Variance vs. Number of PCA Components')
-    plt.grid(True)
-    plot_path = Path(args.output_path).with_name(Path(args.output_path).stem + '_explained_variance.png')
-    plt.savefig(plot_path)
-    plt.close()
-    print(f"Saved explained variance plot to {plot_path}")
+        # Optionally, plot and save the explained variance curve
+        plt.figure(figsize=(8, 6))
+        plt.plot(np.arange(1, len(cumulative_explained_variance) + 1), cumulative_explained_variance, marker='o')
+        plt.xlabel('Number of PCA Components')
+        plt.ylabel('Cumulative Explained Variance Ratio')
+        plt.title('Explained Variance vs. Number of PCA Components')
+        plt.grid(True)
+        plot_path = Path(args.output_path).with_name(Path(args.output_path).stem + '_explained_variance.png')
+        plt.savefig(plot_path)
+        plt.close()
+        print(f"Saved explained variance plot to {plot_path}")
 
+    else:
+        print("Skipping explained variance plot.")
+        
     # Reduce features
     reduced_features, _ = reduce_features_by_pca(features, args.reduced_dim)
     print(f"Reduced features to shape: {reduced_features.shape}")

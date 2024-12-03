@@ -98,15 +98,16 @@ def main():
 
     start_time = time.time()
 
-    # Initialize the custom processor and load the model
-    processor = CustomProcessor(img_size=(224, 224))
-    model_name = "DUSt3R_ViTLarge_BaseDecoder_224_linear"
-    model_keyword = "dust3r_224"
-    dataset_keyword = "exp"
+    # # Initialize the custom processor and load the model
+    # processor = CustomProcessor(img_size=(224, 224))
+    # model_name = "DUSt3R_ViTLarge_BaseDecoder_224_linear"
+    # model_keyword = "dust3r_224"
+    # dataset_keyword = "exp"
     
-    # model_name = "DUSt3R_ViTLarge_BaseDecoder_512_linear"
-    # model_keyword = "dust3r_512"
-    # processor = CustomProcessor(img_size=(512, 512))
+    processor = CustomProcessor(img_size=(512, 512))
+    model_name = "DUSt3R_ViTLarge_BaseDecoder_512_linear"
+    model_keyword = "dust3r_512"
+    dataset_keyword = "exp"
     
     
     
