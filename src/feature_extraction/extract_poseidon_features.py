@@ -26,45 +26,6 @@ def preprocess_image(image_path, grid_size=(128, 128)):
     image_tensor = image_tensor.repeat(4, 1, 1)  # Repeat to create 4 channels
     return image_tensor
 
-# def save_catalog(image_paths, output_path, model_keyword="poseidon", dataset_keyword="sim"):
-#     """
-#     Saves a catalog mapping images to their feature indices.
-#     Args:
-#         image_paths (list): List of image paths.
-#         output_path (str): Path to save the catalog file.
-#         model_keyword (str): Keyword for the model.
-#         dataset_keyword (str): Keyword for the dataset.
-#     """
-#     catalog_name = f"catalog_{model_keyword}_{dataset_keyword}.csv"
-#     catalog_path = output_path.parent / catalog_name
-#     with open(catalog_path, mode='w', newline='') as csvfile:
-#         writer = csv.writer(csvfile)
-#         writer.writerow(["Index", "Image_Path"])
-#         for idx, image_path in enumerate(image_paths):
-#             writer.writerow([idx, str(image_path)])
-#     logging.info(f"Catalog saved to {catalog_path}")
-
-# def save_metadata(output_dir, model_name, data_size, feature_dim, model_keyword="poseidon", dataset_keyword="sim"):
-#     """
-#     Saves metadata about the feature extraction.
-#     Args:
-#         output_path (str): Path to save the metadata file.
-#         model_name (str): Name of the model used.
-#         data_size (int): Total number of images processed.
-#         feature_dim (tuple): Shape of the extracted features per image.
-#     """
-#     metadata_name = f"metadata_{model_keyword}_{dataset_keyword}.json"
-#     metadata_path = output_dir / metadata_name
-#     metadata = {
-#         "model_name": model_name,
-#         "data_size": data_size,
-#         "feature_dim": feature_dim
-#     }
-#     with open(metadata_path, 'w') as metafile:
-#         json.dump(metadata, metafile, indent=4)
-#     logging.info(f"Metadata saved to {metadata_path}")
-    
-
 def extract_features(image_dir, output_path, batch_size=32, grid_size=(128, 128), device="cpu"):
     """
     Extracts features using the Poseidon-B model.

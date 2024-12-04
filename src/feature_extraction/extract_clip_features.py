@@ -107,8 +107,8 @@ def extract_features(image_dir, output_path, batch_size=32, device="cpu"):
     print(f"Extracted features saved to {output_path}")
     
     # Save catalog and metadata
-    save_catalog(image_paths, output_dir, model_keyword="clip", dataset_keyword="exp")
-    save_metadata(output_dir, model_name, len(image_paths), all_features.shape[1:], model_keyword="clip", dataset_keyword="exp")
+    save_catalog(image_paths, output_dir, model_keyword="clip", dataset_keyword="sim")
+    save_metadata(output_dir, model_name, len(image_paths), all_features.shape[1:], model_keyword="clip", dataset_keyword="sim")
 
     end_time = time.time()
     total_time = end_time - start_time
@@ -132,3 +132,9 @@ if __name__ == "__main__":
 
 
 # python src/feature_extraction/extract_clip_features.py --image_dir /Users/tiffan/Desktop/CS468/project/foundation-model-schlieren/data/raw/frames_test --output_path /Users/tiffan/Desktop/CS468/project/foundation-model-schlieren/data/features/frames_test/clip_features.npy
+
+# python src/feature_extraction/extract_clip_features.py --image_dir /Users/tiffan/Desktop/CS468/project/foundation-model-schlieren/data/raw/exp_frames_test --output_path /Users/tiffan/Desktop/CS468/project/foundation-model-schlieren/data/features/exp_frames_test/clip_features.npy
+
+# python src/feature_extraction/extract_clip_features.py --image_dir /Users/tiffan/Desktop/CS468/project/foundation-model-schlieren/data/raw/exp_frames_672_432 --output_path /Users/tiffan/Desktop/CS468/project/foundation-model-schlieren/data/features/exp_frames_672_432/clip_features.npy
+
+# python src/feature_extraction/extract_clip_features.py --image_dir /Users/tiffan/Desktop/CS468/project/foundation-model-schlieren/data/raw/sim_frames_672_432 --output_path /Users/tiffan/Desktop/CS468/project/foundation-model-schlieren/data/features/sim_frames_672_432/clip_features.npy
